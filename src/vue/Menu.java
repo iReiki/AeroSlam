@@ -10,12 +10,12 @@ public class Menu extends JMenuBar{
 	private JMenuItem index;
 	private JMenuItem quitter;
 	private JMenu avion;
-	private JMenuItem afficherAvion;
 	private JMenuItem ajouterAvion;
+	private JMenuItem afficherAvion;
 	private JMenuItem retirerAvion;
 	private JMenu vol;
-	private JMenuItem afficherVol;
 	private JMenuItem ajouterVol;
+	private JMenuItem afficherVol;
 	private JMenuItem retirerVol;
 	
 	public Menu (JFrame f, JPanel p) {
@@ -27,19 +27,19 @@ public class Menu extends JMenuBar{
 		programme.add(quitter);
 		
 		this.avion = new JMenu("Avion");
-		this.afficherAvion = new JMenuItem("Afficher les avions");
 		this.ajouterAvion = new JMenuItem("Ajouter");
+		this.afficherAvion = new JMenuItem("Afficher les avions");
 		this.retirerAvion = new JMenuItem("Retirer");
-		avion.add(afficherAvion);
 		avion.add(ajouterAvion);
+		avion.add(afficherAvion);
 		avion.add(retirerAvion);
 		
 		this.vol = new JMenu("Vol");
-		this.afficherVol = new JMenuItem("Afficher les vols");
 		this.ajouterVol = new JMenuItem("Ajouter");
+		this.afficherVol = new JMenuItem("Afficher les vols");
 		this.retirerVol = new JMenuItem("Retirer");
-		vol.add(afficherVol);
 		vol.add(ajouterVol);
+		vol.add(afficherVol);
 		vol.add(retirerVol);
 		
 		
@@ -49,11 +49,11 @@ public class Menu extends JMenuBar{
 		
 		index.addActionListener(new ActionMenu("index", f, p));
 		quitter.addActionListener(new ActionMenu("quitter", f, p));
-		afficherAvion.addActionListener(new ActionMenu("afficherAvion", f, p));
 		ajouterAvion.addActionListener(new ActionMenu("ajouterAvion", f, p));
+		afficherAvion.addActionListener(new ActionMenu("afficherAvion", f, p));
 		retirerAvion.addActionListener(new ActionMenu("retirerAvion", f, p));
-		afficherVol.addActionListener(new ActionMenu("afficherVol", f, p));
 		ajouterVol.addActionListener(new ActionMenu("ajouterVol", f, p));
+		afficherVol.addActionListener(new ActionMenu("afficherVol", f, p));
 		retirerVol.addActionListener(new ActionMenu("retirerVol", f, p));
 		
 	}
