@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import objet.*;
+import controleur.*;
 
 public class VueRetirerAvion extends JPanel {
 	
@@ -55,6 +56,8 @@ public class VueRetirerAvion extends JPanel {
 			this.tableau.getTableHeader().setReorderingAllowed(false);
 			// Pour empêcher de pouvoir modifier la taille des colonnes
 			this.tableau.getTableHeader().setResizingAllowed(false);
+			// Pour empêcher la sélection de plusieurs lignes 
+			this.tableau.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			this.scroll = new JScrollPane(this.tableau);
 			this.add(this.scroll);
 			
@@ -62,6 +65,8 @@ public class VueRetirerAvion extends JPanel {
 			btnSuppr = new JButton("Supprimer");
 			btnSuppr.setPreferredSize(new Dimension(300,20));
 			this.add(btnSuppr);
+			
+			btnSuppr.addActionListener(new ActionRetirerAvion(this.tableau));
 			
 		}
 		

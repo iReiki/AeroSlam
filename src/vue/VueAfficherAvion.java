@@ -14,13 +14,15 @@ public class VueAfficherAvion extends JPanel {
 	private JLabel lblTitre;
 	private JTable tableau;
 	private JScrollPane scroll;
+	private JLabel lblNbAvion;
 	
 	public VueAfficherAvion (ArrayList<Avion> lesAvions) {
 		
 		this.setLayout(new FlowLayout());
 		
+		Dimension taille = new Dimension(300, 20);
 		lblTitre = new JLabel("Liste des avions", JLabel.CENTER);
-		lblTitre.setPreferredSize(new Dimension(300, 20));
+		lblTitre.setPreferredSize(taille);
 		this.add(lblTitre);
 		
 		Object data[][] = new Object[lesAvions.size()][3];
@@ -54,6 +56,10 @@ public class VueAfficherAvion extends JPanel {
 		this.tableau.getTableHeader().setResizingAllowed(false);
 		this.scroll = new JScrollPane(this.tableau);
 		this.add(this.scroll);
+		
+		lblNbAvion = new JLabel("Nombre total d'avions : " + lesAvions.size());
+		lblNbAvion.setPreferredSize(taille);
+		this.add(lblNbAvion);
 	}
 	
 	// Méthode pour centrer les chaines de caractères dans le tableau

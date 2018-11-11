@@ -31,8 +31,6 @@ public class VueAjouterAvion extends JPanel {
 		
 		panelGrid = new JPanel();
 		panelGrid.setLayout(new GridLayout(6,1));
-		//panelBorder = new JPanel();
-		//this.setLayout(new FlowLayout());
 		
 		panelGrid.add(lblTitre);
 		panelGrid.add(lblNom);
@@ -41,7 +39,6 @@ public class VueAjouterAvion extends JPanel {
 		panelGrid.add(jtfPlace);
 		panelGrid.add(btnValider);
 		
-		//this.add(lblTitre);
 		this.add(panelGrid);
 		
 		btnValider.addActionListener(new ActionAjouterAvion(jtfNom, jtfPlace));

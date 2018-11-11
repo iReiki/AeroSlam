@@ -7,6 +7,10 @@ public class Avion {
 	private String nom;
 	private int nbPlace;
 	
+	public Avion() {
+		
+	}
+	
 	public Avion(int unNum, String unNom, int unNb) {
 		this.num = unNum;
 		this.nom = unNom;
@@ -31,6 +35,16 @@ public class Avion {
 	
 	public void setNbPlace(int unNb) {
 		this.nbPlace = unNb;
+	}
+	
+	public String toXML() {
+		String chaine = "";
+		chaine += "<avion>";
+		chaine += "<numav>" + this.num +"</numav>";
+		chaine += "<nomav>" + this.nom +"</nomav>";
+		chaine += "<nbplace>" + this.nbPlace +"</nbplace>";
+		chaine += "</avion>";
+		return chaine;
 	}
 	
 }

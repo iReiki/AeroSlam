@@ -17,6 +17,8 @@ public class Menu extends JMenuBar{
 	private JMenuItem ajouterVol;
 	private JMenuItem afficherVol;
 	private JMenuItem retirerVol;
+	private JMenu info;
+	private JMenuItem aPropos;
 	
 	public Menu (JFrame f, JPanel p) {
 		
@@ -42,10 +44,14 @@ public class Menu extends JMenuBar{
 		vol.add(afficherVol);
 		vol.add(retirerVol);
 		
+		this.info = new JMenu("?");
+		this.aPropos = new JMenuItem("A propos");
+		info.add(aPropos);
 		
 		this.add(programme);
 		this.add(avion);
 		this.add(vol);
+		this.add(info);
 		
 		index.addActionListener(new ActionMenu("index", f, p));
 		quitter.addActionListener(new ActionMenu("quitter", f, p));
@@ -55,6 +61,7 @@ public class Menu extends JMenuBar{
 		ajouterVol.addActionListener(new ActionMenu("ajouterVol", f, p));
 		afficherVol.addActionListener(new ActionMenu("afficherVol", f, p));
 		retirerVol.addActionListener(new ActionMenu("retirerVol", f, p));
+		aPropos.addActionListener(new ActionMenu("aPropos", f, p));
 		
 	}
 	

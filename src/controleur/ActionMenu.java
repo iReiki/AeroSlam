@@ -22,6 +22,8 @@ public class ActionMenu implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<Avion> lesAvions = Modele.getLesAvions();
+		ArrayList<Destination> lesDest = Modele.getLesDestinations();
+		VuePopup pop = new VuePopup();
 		switch (choix) {
 			case "index" :
 				this.panel.removeAll();
@@ -29,7 +31,6 @@ public class ActionMenu implements ActionListener {
 				this.fenetre.getContentPane().revalidate();
 				break;
 			case "quitter" :
-				VuePopup pop = new VuePopup();
 				int option = pop.addPopChoix("Êtes-vous sûr de vouloir quitter ?", "Quitter l'application");
 				if (pop.choixEstOk(option)) {
 					fenetre.dispose();
@@ -49,6 +50,14 @@ public class ActionMenu implements ActionListener {
 				this.panel.removeAll();
 				this.fenetre.setContentPane(new VueRetirerAvion(lesAvions));
 				this.fenetre.getContentPane().revalidate();
+				break;
+			case "ajouterVol" :
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueAjouterVol(lesAvions, lesDest));
+				this.fenetre.getContentPane().revalidate();
+				break;
+			case "aPropos" :
+				pop.addPopMessage("Ce programme a été développé par Jean-Luc LYS--PHORIMAVONG.");
 				break;
 		}
 		
