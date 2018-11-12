@@ -1,9 +1,11 @@
 package modele;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import objet.*;
+import objet.Date;
 
 public class Modele {
 	
@@ -160,4 +162,93 @@ public class Modele {
 		return lesDestinations; 
 	}
 	
+	// Obtenir une destination
+		public static Destination getUneDestination(int unNum) {
+			connexionBDD();
+			Destination uneDest = new Destination();
+			try {
+				String req = "SELECT * FROM Destination WHERE idDest = ?";
+				pst = connexion.prepareStatement(req);
+				pst.setInt(1, unNum);
+				rs = pst.executeQuery();
+				rs.next();
+				uneDest = new Destination(rs.getInt(1), rs.getString(2), rs.getString(3));
+				rs.close();
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			deconnexionBDD();
+			return uneDest;
+		}
+		
+		public static Destination getUneDestination(String ville) {
+			connexionBDD();
+			Destination uneDest = new Destination();
+			try {
+				String req = "SELECT * FROM Destination WHERE villeDest = ?";
+				pst = connexion.prepareStatement(req);
+				pst.setString(1, ville);
+				rs = pst.executeQuery();
+				rs.next();
+				uneDest = new Destination(rs.getInt(1), rs.getString(2), rs.getString(3));
+				rs.close();
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			deconnexionBDD();
+			return uneDest;
+		}
+	
+	//------------------ VOL ----------------------------
+	// Ajouter un vol
+		public static void ajouterVol(Date uneDate, int unType, int unIdDest, int unNumAv) {
+			connexionBDD();
+			try {
+				String req = "INSERT INTO Vol (dateVol, typeVol, idDest, numAv ) VALUES (?, ?, ?, ?)";
+				pst = connexion.prepareStatement(req);
+				pst.setString(1, String.valueOf(uneDate.getDate()));
+				pst.setInt(2, unType);
+				pst.setInt(3, unIdDest);
+				pst.setInt(4, unNumAv);
+				pst.executeUpdate();
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			deconnexionBDD();
+		}
+		
+		// Obtenir la liste des vols
+		public static ArrayList<Vol> getLesVols() {
+			connexionBDD();
+			ArrayList<Vol> lesVols = new ArrayList<Vol>();
+		    try {  
+				String req = "SELECT * FROM Vol";
+		    	st = connexion.createStatement();
+				rs = st.executeQuery(req);
+				while(rs.next()) {
+					// Conversion de la date de String vers Date
+					String date = rs.getString(2);
+					int jour, mois, annee;
+					jour = Integer.parseInt(date.substring(0, 2));
+					mois = Integer.parseInt(date.substring(3, 5));
+					annee = Integer.parseInt(date.substring(6, 10));
+					Date laDate = new Date(LocalDate.of(annee, mois, jour));
+					// Conversion de la destination de int vers Destination
+					Destination laDest = getUneDestination(rs.getInt(4));
+					// Conversion de l'avion de int vers Avion
+					Avion lAvion = getUnAvion(rs.getInt(5));
+					Vol unVol = new Vol(rs.getInt(1), laDate, rs.getInt(3), laDest , lAvion);
+					lesVols.add(unVol);
+				}
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			deconnexionBDD();
+			return lesVols; 
+		}
 }

@@ -1,7 +1,9 @@
 package controleur;
 
 import java.awt.event.*;
+import java.time.LocalDate;
 import javax.swing.*;
+import java.text.ParseException;
 
 import modele.Modele;
 import vue.*;
@@ -10,36 +12,83 @@ import objet.*;
 public class ActionAjouterVol implements ActionListener {
 	
 	private String choix;
+	private JTextField jtfDate;
+	private JComboBox listeAvion;
+	private JComboBox listeDest;
 	private JRadioButton jr1;
 	private JRadioButton jr2;
-	private JComboBox liste;
-	private Avion unAvion;
 	private JPanel panel;
-	private JPanel panelGrid;
+	private VueInfoAvion info;
+	//private JPanel panelGrid;
 	
-	public ActionAjouterVol(String unChoix, JPanel p, Object numAv) {
+	public ActionAjouterVol(String unChoix, JPanel p, JComboBox listeAv, VueInfoAvion laVue) {
 		this.choix = unChoix;
 		this.panel = p;
-		this.unAvion = Modele.getUnAvion((Integer)numAv);
+		this.listeAvion = listeAv;
+		this.info = laVue;
 	}
 	
-	public ActionAjouterVol(String unChoix, JRadioButton leJr, JRadioButton autreJr, JComboBox laListe) {
+	public ActionAjouterVol(String unChoix, JTextField jtfDeLaDate, JComboBox laListeAvion, JComboBox laListeDest, JRadioButton jrCom, JRadioButton jrCou) {
 		this.choix = unChoix;
-		this.jr1 = leJr;
-		this.jr2 = autreJr;
-		this.liste = laListe;
+		this.jtfDate = jtfDeLaDate;
+		this.listeAvion = laListeAvion;
+		this.listeDest = laListeDest;
+		this.jr1 = jrCom;
+		this.jr2 = jrCou;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		VuePopup pop = new VuePopup();
 		switch(choix) {
 			case "liste" :
-				// A voir
-				this.panel.add(new VueInfoAvion(this.unAvion));
-				this.panel.revalidate();
-				System.out.println("1");
+				Avion unAvion = Modele.getUnAvion((Integer)this.listeAvion.getSelectedItem());
+				this.info.addlesInfos(unAvion);
 				break;
 			case "ajouter" :
-				
+				String date = this.jtfDate.getText();
+				// Vérification du format de la date
+				if (!date.matches("[0-9]{2}[/][0-9]{2}[/][0-9]{4}")) {
+					pop.addPopErreur("Le format de la date n'est pas respecté !");
+				}
+				else {
+					int jour, mois, annee;
+					// Récupération du jour, du mois et de l'année
+					jour = Integer.parseInt(date.substring(0, 2));
+					mois = Integer.parseInt(date.substring(3, 5));
+					annee = Integer.parseInt(date.substring(6, 10));
+					// Vérification si le mois est valide
+					if (mois > 12 || mois < 1) {
+						pop.addPopErreur("La date saisie est invalide.");
+					}
+					else {
+						// Vérification si le date du jour est valide
+						LocalDate verifDate = LocalDate.of(annee, mois, 1);
+						int nbJoursMois = verifDate.getMonth().maxLength();
+						if (jour > nbJoursMois || jour < 1) {
+							pop.addPopErreur("La date saisie est invalide.");
+						}
+						else {
+							// Date crée
+							Date uneDate = new Date(LocalDate.of(annee, mois, jour));
+							// Récupération du choix de l'avion
+							int numAv = (Integer)this.listeAvion.getSelectedItem();
+							// Récupération du choix de la destination
+							String villeDest = String.valueOf(this.listeDest.getSelectedItem());
+							Destination dest = Modele.getUneDestination(villeDest);
+							// Récupération du type de vol sélectionné
+							int type = 0;
+							if (jr1.isSelected()) {
+								type = 0;
+							}
+							if (jr2.isSelected()) {
+								type = 1;
+							}
+							Modele.ajouterVol(uneDate, type, dest.getId(), numAv);
+							pop.addPopMessage("Vol ajouté avec succès.");
+						}
+					}
+					
+				}
 				break;
 		}
 	}

@@ -7,23 +7,23 @@ import objet.*;
 
 public class VueInfoAvion extends JPanel {
 	
-	private Avion unAvion;
 	private JLabel lblNom;
 	private JLabel lblPlace;
-	private JPanel panel;
 	
-	public VueInfoAvion (Avion lAvion) {
-		this.unAvion = lAvion;
-				
-		lblNom = new JLabel("Nom de l'avion : " + this.unAvion.getNom());
-		lblPlace = new JLabel("Nombre de places : " + this.unAvion.getNbPlace());
-		
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(2,1));
-		
-		panel.add(lblNom);
-		panel.add(lblPlace);
-		this.add(panel);
+	public VueInfoAvion () {
+        lblNom = new JLabel("", JLabel.CENTER);
+        lblPlace = new JLabel("", JLabel.CENTER);
+        
+        this.setLayout(new GridLayout(2,1));
+        
+        this.add(lblNom);
+        this.add(lblPlace);
+    }
+	
+	public void addlesInfos(Avion lAvion) {
+		lblNom.setText("Nom de l'avion : " + lAvion.getNom());
+		lblPlace.setText("Nombre de places : " + lAvion.getNbPlace());
+		this.revalidate();
 	}
 	
 }

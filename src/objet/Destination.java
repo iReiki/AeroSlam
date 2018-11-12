@@ -6,6 +6,10 @@ public class Destination {
 	private String ville;
 	private String pays;
 	
+	public Destination() {
+		
+	}
+	
 	public Destination(int unId, String uneVille, String unPays) {
 		this.id = unId;
 		this.ville = uneVille;
