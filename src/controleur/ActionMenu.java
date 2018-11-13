@@ -23,6 +23,7 @@ public class ActionMenu implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<Avion> lesAvions = Modele.getLesAvions();
 		ArrayList<Destination> lesDest = Modele.getLesDestinations();
+		ArrayList<VolCourrier> lesVolsC = Modele.getLesVolCourriers();
 		VuePopup pop = new VuePopup();
 		switch (choix) {
 			case "index" :
@@ -54,6 +55,11 @@ public class ActionMenu implements ActionListener {
 			case "ajouterVol" :
 				this.panel.removeAll();
 				this.fenetre.setContentPane(new VueAjouterVol(lesAvions, lesDest));
+				this.fenetre.getContentPane().revalidate();
+				break;
+			case "afficherVol":
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueAfficherVolCourrier(lesVolsC));
 				this.fenetre.getContentPane().revalidate();
 				break;
 			case "aPropos" :

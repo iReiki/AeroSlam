@@ -68,23 +68,31 @@ public class ActionAjouterVol implements ActionListener {
 							pop.addPopErreur("La date saisie est invalide.");
 						}
 						else {
-							// Date crée
-							Date uneDate = new Date(LocalDate.of(annee, mois, jour));
-							// Récupération du choix de l'avion
-							int numAv = (Integer)this.listeAvion.getSelectedItem();
-							// Récupération du choix de la destination
-							String villeDest = String.valueOf(this.listeDest.getSelectedItem());
-							Destination dest = Modele.getUneDestination(villeDest);
-							// Récupération du type de vol sélectionné
-							int type = 0;
-							if (jr1.isSelected()) {
-								type = 0;
+							LocalDate dateVol = LocalDate.of(annee, mois, jour);
+							LocalDate dateCourante = LocalDate.now();
+							if(dateVol.isBefore(dateCourante)) {
+								pop.addPopErreur("La date saisie est déjà passée.");
 							}
-							if (jr2.isSelected()) {
-								type = 1;
+							else {
+								// Date crée
+								Date uneDate = new Date(dateVol);
+								// Récupération du choix de l'avion
+								int numAv = (Integer)this.listeAvion.getSelectedItem();
+								// Récupération du choix de la destination
+								String villeDest = String.valueOf(this.listeDest.getSelectedItem());
+								Destination dest = Modele.getUneDestination(villeDest);
+								// Récupération du type de vol sélectionné
+								int type = 0;
+								if (jr1.isSelected()) {
+									type = 0;
+								}
+								if (jr2.isSelected()) {
+									type = 1;
+								}
+								Modele.ajouterVol(uneDate, type, dest.getId(), numAv);
+								pop.addPopMessage("Vol ajouté avec succès.");
 							}
-							Modele.ajouterVol(uneDate, type, dest.getId(), numAv);
-							pop.addPopMessage("Vol ajouté avec succès.");
+							
 						}
 					}
 					

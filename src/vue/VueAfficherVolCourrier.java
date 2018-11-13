@@ -6,37 +6,38 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import modele.Modele;
 import objet.*;
 
 
-public class VueAfficherAvion extends JPanel {
+public class VueAfficherVolCourrier extends JPanel {
 	
 	// Attributs privés
-	private JLabel lblTitre;
+	
 	private JTable tableau;
 	private JScrollPane scroll;
-	private JLabel lblNbAvion;
+	private JLabel lblNbVol;
 	
-	public VueAfficherAvion (ArrayList<Avion> lesAvions) {
+	public VueAfficherVolCourrier (ArrayList<VolCourrier> lesVols) {
 		
 		this.setLayout(new FlowLayout());
 		
 		Dimension taille = new Dimension(300, 20);
-		lblTitre = new JLabel("Liste des avions", JLabel.CENTER);
-		lblTitre.setPreferredSize(taille);
-		this.add(lblTitre);
 		
-		Object data[][] = new Object[lesAvions.size()][3];
+		Object data[][] = new Object[lesVols.size()][5];
 		int i = 0;
-		for (Avion a : lesAvions) {
-			data[i][0] = a.getNum();
-			data[i][1] = a.getNom();
-			data[i][2] = a.getNbPlace();
+		for (Vol v : lesVols) {
+			int nbPlaceReserv = Modele.getNbPlacesReservees(v.getNum());
+			data[i][0] = v.getNum();
+			data[i][1] = v.getDate().getDateFrancais();
+			data[i][2] = v.getUneDestination().getVille();
+			data[i][3] = v.getUnAvion().getNom();
+			data[i][4] = nbPlaceReserv + "/" + v.getUnAvion().getNbPlace();
 			i++;
 		}
-		String[] title = {"Numéro", "Nom", "Places"};
+		String[] title = {"Numéro", "Date", "Destination", "Avion", "Nombre de places"};
 		this.tableau = new JTable(data, title);
-		if (lesAvions.size() < 10) {
+		if (lesVols.size() < 10) {
 			this.tableau.setPreferredScrollableViewportSize(new Dimension(600, 16*i));
 		}
 		else {
@@ -58,9 +59,9 @@ public class VueAfficherAvion extends JPanel {
 		this.scroll = new JScrollPane(this.tableau);
 		this.add(this.scroll);
 		
-		lblNbAvion = new JLabel("Nombre total d'avions : " + lesAvions.size());
-		lblNbAvion.setPreferredSize(taille);
-		this.add(lblNbAvion);
+		lblNbVol = new JLabel("Nombre total de vols : " + lesVols.size());
+		lblNbVol.setPreferredSize(taille);
+		this.add(lblNbVol);
 	}
 	
 	// Méthode pour centrer les chaines de caractères dans le tableau
