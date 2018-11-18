@@ -23,7 +23,10 @@ public class ActionMenu implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<Avion> lesAvions = Modele.getLesAvions();
 		ArrayList<Destination> lesDest = Modele.getLesDestinations();
-		ArrayList<VolCourrier> lesVolsC = Modele.getLesVolCourriers();
+		ArrayList<VolCourrier> lesVolsCou = Modele.getLesVolCourriers();
+		ArrayList<VolCommercial> lesVolsCom = Modele.getLesVolCommerciaux();
+		ArrayList<Vol> lesVols = Modele.getLesVols();
+		ArrayList<Passager> tousLesPassagers = Modele.getTousLesPassagers();
 		VuePopup pop = new VuePopup();
 		switch (choix) {
 			case "index" :
@@ -59,9 +62,29 @@ public class ActionMenu implements ActionListener {
 				break;
 			case "afficherVol":
 				this.panel.removeAll();
-				this.fenetre.setContentPane(new VueAfficherVolCourrier(lesVolsC));
+				this.fenetre.setContentPane(new VueSelectionTypeVol(lesVolsCou, lesVolsCom, tousLesPassagers));
 				this.fenetre.getContentPane().revalidate();
 				break;
+			case "retirerVol":
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueRetirerVol(lesVols));
+				this.fenetre.getContentPane().revalidate();
+				break;
+			case "ajouterPassager" :
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueAjouterPassager());
+				this.fenetre.getContentPane().revalidate();
+				break;
+			case "afficherPassager" :
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueAfficherTousLesPassagers(tousLesPassagers));
+				this.fenetre.getContentPane().revalidate();
+				break;
+			case "rechercherPassager" :
+				this.panel.removeAll();
+				this.fenetre.setContentPane(new VueRechercherPassager());
+				this.fenetre.getContentPane().revalidate();
+				break;	
 			case "aPropos" :
 				pop.addPopMessage("Ce programme a été développé par Jean-Luc LYS--PHORIMAVONG.");
 				break;

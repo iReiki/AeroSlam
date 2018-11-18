@@ -6,47 +6,34 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import controleur.*;
-import modele.Modele;
 import objet.*;
 
 
-public class VueAfficherVolCourrier extends JPanel {
+public class VueAfficherVolCommercial extends JPanel {
 	
 	// Attributs privés
 	
-	private JPanel panelGrid;
 	private JTable tableau;
 	private JScrollPane scroll;
 	private JPanel panel;
 	private JLabel lblNbVol;
-	private JButton btnAfficher;
-	private JButton btnReserver;
-	private JPanel panelReservation;
-	private JLabel lblTitreR;
-	private JLabel lblPassager;
-	private JComboBox listePassager;
 	
-	public VueAfficherVolCourrier (ArrayList<VolCourrier> lesVols, ArrayList<Passager> lesP) {
+	public VueAfficherVolCommercial (ArrayList<VolCommercial> lesVols) {
 		
-		this.setLayout(new GridLayout(3,1));
-		
-		panelGrid = new JPanel(new GridLayout(2,1));
+		this.setLayout(new GridLayout(2,1));
 		
 		Dimension taille = new Dimension(300, 20);
 		
-		Object data[][] = new Object[lesVols.size()][5];
+		Object data[][] = new Object[lesVols.size()][4];
 		int i = 0;
 		for (Vol v : lesVols) {
-			int nbPlaceReserv = Modele.getNbPlacesReservees(v.getNum());
 			data[i][0] = v.getNum();
 			data[i][1] = v.getDate().getDateFrancais();
 			data[i][2] = v.getUneDestination().getVille();
 			data[i][3] = v.getUnAvion().getNom();
-			data[i][4] = nbPlaceReserv + "/" + v.getUnAvion().getNbPlace();
 			i++;
 		}
-		String[] title = {"Numéro", "Date", "Destination", "Avion", "Nombre de places"};
+		String[] title = {"Numéro", "Date", "Destination", "Avion"};
 		this.tableau = new JTable(data, title);
 		if (lesVols.size() < 10) {
 			this.tableau.setPreferredScrollableViewportSize(new Dimension(600, 16*i));
@@ -71,29 +58,10 @@ public class VueAfficherVolCourrier extends JPanel {
 		this.add(this.scroll);
 		
 		panel = new JPanel();
-		lblNbVol = new JLabel("Nombre total de vols courriers : " + lesVols.size(), JLabel.CENTER);
+		lblNbVol = new JLabel("Nombre total de vols commerciaux : " + lesVols.size(), JLabel.CENTER);
 		lblNbVol.setPreferredSize(taille);
-		btnAfficher = new JButton("Afficher les passagers");
-		btnReserver = new JButton("Réserver un vol");
 		panel.add(lblNbVol);
-		panel.add(btnAfficher);
-		panel.add(btnReserver);
 		this.add(panel);
-		
-		//this.add(panelGrid);
-		
-		panelReservation = new JPanel();
-		lblPassager = new JLabel("Sélection d'un passager :");
-		listePassager = new JComboBox();
-		for(Passager p : lesP) {
-			listePassager.addItem(p.getNom() + " " + p.getPrenom());
-		}
-		panelReservation.add(lblPassager);
-		panelReservation.add(listePassager);
-		this.add(panelReservation);
-		
-		btnAfficher.addActionListener(new ActionAfficherPassager(this.tableau));
-		btnReserver.addActionListener(new ActionReserverVol(this.tableau, this.listePassager));
 	}
 	
 	// Méthode pour centrer les chaines de caractères dans le tableau

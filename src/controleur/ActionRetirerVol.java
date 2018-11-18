@@ -7,14 +7,14 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import modele.Modele;
-import objet.Avion;
+import objet.Vol;
 import vue.*;
 
-public class ActionRetirerAvion implements ActionListener {
+public class ActionRetirerVol implements ActionListener {
 	
 	private JTable tableau;
 	
-	public ActionRetirerAvion(JTable unTableau) {
+	public ActionRetirerVol(JTable unTableau) {
 		this.tableau = unTableau;
 	}
 	
@@ -27,12 +27,12 @@ public class ActionRetirerAvion implements ActionListener {
 				pop.addPopErreur("Aucune ligne sélectionnée.");
 			}
 			else {
-				int numAvion = (Integer)this.tableau.getValueAt(selection, 0);
-				if (Modele.possedeUnVol(numAvion)) {
-					pop.addPopErreur("Impossible de supprimer l'avion : un ou plusieurs vol(s) lui a été attribué.");
+				int numVol = (Integer)this.tableau.getValueAt(selection, 0);
+				if (Modele.volEstVide(numVol)) {
+					pop.addPopErreur("Impossible de supprimer le vol : le vol comporte des passagers.");
 				}
 				else {
-					Modele.retirerAvion(numAvion);
+					Modele.retirerAvion(numVol);
 					// Retirer la ligne sélectionnée
 					((DefaultTableModel)this.tableau.getModel()).removeRow(selection);
 				}

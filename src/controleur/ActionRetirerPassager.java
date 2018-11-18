@@ -10,12 +10,14 @@ import modele.Modele;
 import objet.Avion;
 import vue.*;
 
-public class ActionRetirerAvion implements ActionListener {
+public class ActionRetirerPassager implements ActionListener {
 	
 	private JTable tableau;
+	private int numVol;
 	
-	public ActionRetirerAvion(JTable unTableau) {
+	public ActionRetirerPassager(JTable unTableau, int numV) {
 		this.tableau = unTableau;
+		this.numVol = numV;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -27,16 +29,10 @@ public class ActionRetirerAvion implements ActionListener {
 				pop.addPopErreur("Aucune ligne sélectionnée.");
 			}
 			else {
-				int numAvion = (Integer)this.tableau.getValueAt(selection, 0);
-				if (Modele.possedeUnVol(numAvion)) {
-					pop.addPopErreur("Impossible de supprimer l'avion : un ou plusieurs vol(s) lui a été attribué.");
-				}
-				else {
-					Modele.retirerAvion(numAvion);
-					// Retirer la ligne sélectionnée
-					((DefaultTableModel)this.tableau.getModel()).removeRow(selection);
-				}
-				
+				int numP = (Integer)this.tableau.getValueAt(selection, 0);
+				Modele.annulerReservation(this.numVol, numP);
+				// Retirer la ligne sélectionnée
+				((DefaultTableModel)this.tableau.getModel()).removeRow(selection);
 			}
 		}
 	}	

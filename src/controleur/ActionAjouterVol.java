@@ -19,7 +19,6 @@ public class ActionAjouterVol implements ActionListener {
 	private JRadioButton jr2;
 	private JPanel panel;
 	private VueInfoAvion info;
-	//private JPanel panelGrid;
 	
 	public ActionAjouterVol(String unChoix, JPanel p, JComboBox listeAv, VueInfoAvion laVue) {
 		this.choix = unChoix;

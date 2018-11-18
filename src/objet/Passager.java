@@ -2,6 +2,8 @@ package objet;
 
 import java.util.*;
 
+import modele.Modele;
+
 public class Passager {
 	
 	private int num;
@@ -44,6 +46,11 @@ public class Passager {
 	
 	public String getVille() {
 		return this.ville;
+	}
+	
+	public ArrayList<VolCourrier> getSesVols() {
+		this.sesVols = Modele.getSesVols(this.num);
+		return this.sesVols;
 	}
 	
 }

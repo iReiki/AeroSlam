@@ -17,6 +17,10 @@ public class Menu extends JMenuBar{
 	private JMenuItem ajouterVol;
 	private JMenuItem afficherVol;
 	private JMenuItem retirerVol;
+	private JMenu passager;
+	private JMenuItem ajouterPassager;
+	private JMenuItem afficherPassager;
+	private JMenuItem rechercherPassager;
 	private JMenu info;
 	private JMenuItem aPropos;
 	
@@ -44,6 +48,14 @@ public class Menu extends JMenuBar{
 		vol.add(afficherVol);
 		vol.add(retirerVol);
 		
+		this.passager = new JMenu("Passager");
+		this.ajouterPassager = new JMenuItem("Ajouter");
+		this.afficherPassager = new JMenuItem("Afficher tous les passagers");
+		this.rechercherPassager = new JMenuItem("Rechercher un passager et ses vols");
+		passager.add(ajouterPassager);
+		passager.add(afficherPassager);
+		passager.add(rechercherPassager);
+		
 		this.info = new JMenu("?");
 		this.aPropos = new JMenuItem("A propos");
 		info.add(aPropos);
@@ -51,6 +63,7 @@ public class Menu extends JMenuBar{
 		this.add(programme);
 		this.add(avion);
 		this.add(vol);
+		this.add(passager);
 		this.add(info);
 		
 		index.addActionListener(new ActionMenu("index", f, p));
@@ -61,6 +74,9 @@ public class Menu extends JMenuBar{
 		ajouterVol.addActionListener(new ActionMenu("ajouterVol", f, p));
 		afficherVol.addActionListener(new ActionMenu("afficherVol", f, p));
 		retirerVol.addActionListener(new ActionMenu("retirerVol", f, p));
+		ajouterPassager.addActionListener(new ActionMenu("ajouterPassager", f, p));
+		afficherPassager.addActionListener(new ActionMenu("afficherPassager", f, p));
+		rechercherPassager.addActionListener(new ActionMenu("rechercherPassager", f, p));
 		aPropos.addActionListener(new ActionMenu("aPropos", f, p));
 		
 	}
