@@ -24,16 +24,19 @@ public class ActionAjouterPassager implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		// Récupération des valeurs dans des variables
 		String nom = this.jtfNom.getText();
 		String prenom = this.jtfPrenom.getText();
 		String rue = this.jtfRue.getText();
 		String cp = this.jtfCp.getText();
 		String ville = this.jtfVille.getText();
 		VuePopup pop = new VuePopup();
+		// Vérification si champ vide
 		if (nom.length() == 0 || prenom.length() == 0 || rue.length() == 0 || cp.length() == 0 || ville.length() == 0) {
 			pop.addPopErreur("Tous les champs ne sont pas remplis.");
 		}
 		else {
+			// Vérification du champ du code postal
 			if (cp.length() == 5 && isInteger(cp)) {
 				int code = Integer.parseInt(cp);
 				Modele.ajouterPassager(nom, prenom, rue, code, ville);
@@ -45,6 +48,7 @@ public class ActionAjouterPassager implements ActionListener {
 		}
 	}
 	
+	// Fonction pour vérifier si la chaine contient que des chiffres
 	public boolean isInteger(String str) {
 	    boolean trouver = true;
 		int i = 0;

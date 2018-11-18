@@ -19,9 +19,11 @@ public class ActionConnexion implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		// Récupération des valeurs
 		String login = this.jtfLogin.getText();
 		String mdp = this.jtfMdp.getText();
 		VuePopup pop = new VuePopup();
+		// Vérification de la connexion
 		if(Modele.connexionAdmin(login, mdp)) {
 			pop.addPopMessage("Connexion réussie.");
 			this.panel.removeAll();

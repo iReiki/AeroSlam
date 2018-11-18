@@ -20,6 +20,7 @@ public class ActionAjouterVol implements ActionListener {
 	private JPanel panel;
 	private VueInfoAvion info;
 	
+	// Constructeur pour intéragir avec la liste déroulante
 	public ActionAjouterVol(String unChoix, JPanel p, JComboBox listeAv, VueInfoAvion laVue) {
 		this.choix = unChoix;
 		this.panel = p;
@@ -27,6 +28,7 @@ public class ActionAjouterVol implements ActionListener {
 		this.info = laVue;
 	}
 	
+	// Constructeur utilisé lorsque le bouton est appuyé
 	public ActionAjouterVol(String unChoix, JTextField jtfDeLaDate, JComboBox laListeAvion, JComboBox laListeDest, JRadioButton jrCom, JRadioButton jrCou) {
 		this.choix = unChoix;
 		this.jtfDate = jtfDeLaDate;
@@ -40,6 +42,7 @@ public class ActionAjouterVol implements ActionListener {
 		VuePopup pop = new VuePopup();
 		switch(choix) {
 			case "liste" :
+				// Mise à jour des infos de l'avion sélectionné
 				Avion unAvion = Modele.getUnAvion((Integer)this.listeAvion.getSelectedItem());
 				this.info.addlesInfos(unAvion);
 				break;

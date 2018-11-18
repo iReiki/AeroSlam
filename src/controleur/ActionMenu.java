@@ -21,6 +21,7 @@ public class ActionMenu implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		// Récupération des listes
 		ArrayList<Avion> lesAvions = Modele.getLesAvions();
 		ArrayList<Destination> lesDest = Modele.getLesDestinations();
 		ArrayList<VolCourrier> lesVolsCou = Modele.getLesVolCourriers();

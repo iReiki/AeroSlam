@@ -23,6 +23,7 @@ public class ActionRetirerPassager implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		VuePopup pop = new VuePopup();
 		int option = pop.addPopChoix("Cette action est irréversible. Êtes-vous sûr de votre choix ?", "Validation de la suppression");
+		// Vérification si une ligne est sélectionnée
 		int selection = this.tableau.getSelectedRow();
 		if (pop.choixEstOk(option)) {
 			if (selection == -1) {
