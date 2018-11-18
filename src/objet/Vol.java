@@ -47,4 +47,15 @@ public class Vol {
 		return type;
 	}
 	
+	public String toXML(){
+        String chaine = "\n <vol>"
+        				+ "\n \t <numvol>" + this.num + "</numvol> \n"
+                        + "\t <datevol>" + this.date.getDateFrancais() + "</datevol> \n"
+                        + "\t <typevol>" + this.type + "</typevol> \n"
+                        + "\t <iddest>" + this.uneDestination.getId() + "</iddest> \n"
+                        + "\t <numav>" + this.unAvion.getNum() + "</NUMEROAVION> \n "
+                        + "</vol>";
+        return chaine;
+    }
+	
 }

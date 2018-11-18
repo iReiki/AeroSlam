@@ -6,17 +6,22 @@ import java.util.ArrayList;
 
 import objet.*;
 import objet.Date;
-
+/**
+ * 
+ * @author jluc
+ *
+ */
 public class Modele {
-	
+
 // Attributs privés
 	private static Connection connexion;
 	private static Statement st;
 	private static PreparedStatement pst;
 	private static ResultSet rs;
 	
-	// Méthodes statiques
-	// Connexion à la BDD
+	/**
+	 * Connexion à la BDD
+	 */
 	public static void connexionBDD() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -30,7 +35,9 @@ public class Modele {
 		}
 	}
 	
-	// Déconnexion à la BDD
+	/**
+	 * Déconnexion de la BDD
+	 */
 	public static void deconnexionBDD() {
 		try {
 			connexion.close();
@@ -39,7 +46,13 @@ public class Modele {
 		}
 	}
 	
-	// Vérification connexion admin
+	/**
+	 * Vérification de la connexion admin
+	 * 
+	 * @param login
+	 * @param mdp
+	 * @return true si les identifiants sont corrects
+	 */
 	public static boolean connexionAdmin(String login, String mdp) {
 		boolean trouver = false;
 		connexionBDD();
@@ -62,8 +75,14 @@ public class Modele {
 		return trouver;
 	}
 	
-	//----------------- AVION --------------------
-	// Ajouter un avion
+	// --------------------------------- AVION ----------------------------------------------
+	
+	/**
+	 * Ajouter un avion
+	 * 
+	 * @param unNom
+	 * @param unNbPlace
+	 */
 	public static void ajouterAvion(String unNom, int unNbPlace) {
 		connexionBDD();
 		try {
@@ -79,7 +98,11 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Obtenir la liste des avions
+	/**
+	 * Obtenir la liste des avions
+	 * 
+	 * @return lesAvions
+	 */
 	public static ArrayList<Avion> getLesAvions() {
 		connexionBDD();
 		ArrayList<Avion> lesAvions = new ArrayList<Avion>();
@@ -100,7 +123,12 @@ public class Modele {
 		return lesAvions; 
 	}
 	
-	// Obtenir un avion
+	/**
+	 * Obtenir un avion
+	 * 
+	 * @param unNum
+	 * @return lAvion
+	 */
 	public static Avion getUnAvion(int unNum) {
 		connexionBDD();
 		Avion lAvion = new Avion();
@@ -120,7 +148,11 @@ public class Modele {
 		return lAvion;
 	}	
 	
-	// Retirer un avion
+	/**
+	 * Retirer un avion
+	 * 
+	 * @param unNum
+	 */
 	public static void retirerAvion(int unNum) {
 		connexionBDD();
 		try {
@@ -135,12 +167,20 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Nombre d'avions
+	/**
+	 * 
+	 * @return le nombre d'avion
+	 */
 	public static int getNbAvions() {
 		return Modele.getLesAvions().size();
 	}
 	
-	// Obtenir si l'avion a un vol
+	/**
+	 * Obtenir si l'avion a un vol
+	 * 
+	 * @param unNum
+	 * @return true si l'avion possède un vol
+	 */
 	public static boolean possedeUnVol(int unNum) {
 		boolean trouver = false;
 		connexionBDD();
@@ -162,8 +202,13 @@ public class Modele {
 		return trouver;
 	}
 	
-	//---------------- DESTINATION --------------------
-	// Obtenir les destinations
+	//----------------------------- DESTINATION --------------------------------
+	
+	/**
+	 * Obtenir les destinations
+	 * 
+	 * @return lesDestinations
+	 */
 	public static ArrayList<Destination> getLesDestinations() {
 		connexionBDD();
 		ArrayList<Destination> lesDestinations = new ArrayList<Destination>();
@@ -184,7 +229,12 @@ public class Modele {
 		return lesDestinations; 
 	}
 	
-	// Obtenir une destination
+	/**
+	 * Obtenir une destination
+	 * 
+	 * @param unNum
+	 * @return uneDest
+	 */
 	public static Destination getUneDestination(int unNum) {
 		connexionBDD();
 		Destination uneDest = new Destination();
@@ -204,7 +254,12 @@ public class Modele {
 		return uneDest;
 	}
 	
-	// Obtenir les infos de la destination selon sa ville
+	/**
+	 * Obtenir les infos de la destination selon sa ville
+	 * 
+	 * @param ville
+	 * @return uneDest
+	 */
 	public static Destination getUneDestination(String ville) {
 		connexionBDD();
 		Destination uneDest = new Destination();
@@ -224,8 +279,15 @@ public class Modele {
 		return uneDest;
 	}
 
-	//------------------ VOL ----------------------------
-	// Ajouter un vol
+	//---------------------------------- VOL -------------------------------
+	/**
+	 * Ajouter un vol
+	 * 
+	 * @param uneDate
+	 * @param unType
+	 * @param unIdDest
+	 * @param unNumAv
+	 */
 	public static void ajouterVol(Date uneDate, int unType, int unIdDest, int unNumAv) {
 		connexionBDD();
 		try {
@@ -243,7 +305,11 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Obtenir la liste des vols
+	/**
+	 * Obtenir la liste des vols
+	 * 
+	 * @return lesVols
+	 */
 	public static ArrayList<Vol> getLesVols() {
 		connexionBDD();
 		ArrayList<Vol> lesVols = new ArrayList<Vol>();
@@ -282,7 +348,11 @@ public class Modele {
 		return lesVols; 
 	}
 	
-	// Obtenir la liste des vols courriers
+	/**
+	 * Obtenir la liste des vols courriers
+	 * 
+	 * @return lesVols courriers
+	 */
 	public static ArrayList<VolCourrier> getLesVolCourriers() {
 		connexionBDD();
 		ArrayList<VolCourrier> lesVols = new ArrayList<VolCourrier>();
@@ -314,7 +384,11 @@ public class Modele {
 		return lesVols; 
 	}
 	
-	// Obtenir la liste des vols commerciaux
+	/**
+	 * Obtenir la liste des vols commerciaux
+	 * 
+	 * @return lesVols commerciaux
+	 */
 	public static ArrayList<VolCommercial> getLesVolCommerciaux() {
 		connexionBDD();
 		ArrayList<VolCommercial> lesVols = new ArrayList<VolCommercial>();
@@ -346,7 +420,12 @@ public class Modele {
 		return lesVols; 
 	}
 	
-	// Obtenir la liste des vols courriers
+	/**
+	 * Obtenir un vol courrier
+	 * 
+	 * @param unNum
+	 * @return leVol
+	 */
 	public static VolCourrier getUnVolCourrier(int unNum) {
 		connexionBDD();
 		VolCourrier leVol = null;
@@ -377,7 +456,11 @@ public class Modele {
 		return leVol; 
 	}
 	
-	// Retire un vol
+	/**
+	 * Retirer un vol
+	 * 
+	 * @param numV
+	 */
 	public static void retirerVol(int numV) {
 		connexionBDD();
 		try {
@@ -392,7 +475,12 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Vol est vide ou non
+	/**
+	 * Vol est vide ou non
+	 * 
+	 * @param numV
+	 * @return true s'il l'avion est vide
+	 */
 	public static boolean volEstVide(int numV) {
 		connexionBDD();
 		boolean trouver = false;
@@ -413,7 +501,12 @@ public class Modele {
 		return trouver;
 	}
 	
-	// Obtenir les passagers d'un vol donné
+	/**
+	 * Obtenir les passagers d'un vol donné
+	 * 
+	 * @param numV
+	 * @return lesPassagers
+	 */
 	public static ArrayList<Passager> getLesPassagers(int numV) {
 		connexionBDD();
 		ArrayList<Passager> lesPassagers = new ArrayList<Passager>();
@@ -436,7 +529,12 @@ public class Modele {
 	}
 	
 	// -------------------- ENREGISTRER ------------------------
-	// Réserver un vol
+	/**
+	 * Réserver un vol
+	 * 
+	 * @param numVol
+	 * @param numP
+	 */
 	public static void reserverVol(int numVol, int numP) {
 		connexionBDD();
 		try {
@@ -452,7 +550,13 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Passager déjà ajouté 
+	/**
+	 * Passager déjà ajouté 
+	 * 
+	 * @param numVol
+	 * @param numP
+	 * @return true si le passager est déjà présent
+	 */
 	public static boolean passagerEstAjoute(int numVol, int numP) {
 		connexionBDD();
 		boolean trouver = false;
@@ -474,7 +578,12 @@ public class Modele {
 		return trouver;
 	}
 	
-	// Annuler la réservation d'un vol
+	/**
+	 * Annuler la réservation d'un vol
+	 * 
+	 * @param numVol
+	 * @param numP
+	 */
 	public static void annulerReservation(int numVol, int numP) {
 		connexionBDD();
 		try {
@@ -490,8 +599,16 @@ public class Modele {
 		deconnexionBDD();
 	}
 		
-	//---------------------- PASSAGER ---------------------------------
-	// Ajouter un passager
+	//--------------------------------------- PASSAGER ---------------------------------
+	/**
+	 * Ajouter un passager
+	 * 
+	 * @param unNom
+	 * @param unPrenom
+	 * @param uneRue
+	 * @param unCp
+	 * @param uneVille
+	 */
 	public static void ajouterPassager(String unNom, String unPrenom, String uneRue, int unCp, String uneVille) {
 		connexionBDD();
 		try {
@@ -510,7 +627,13 @@ public class Modele {
 		deconnexionBDD();
 	}
 	
-	// Rechercher un passager
+	/**
+	 * Rechercher un passager
+	 * 
+	 * @param nom
+	 * @param prenom
+	 * @return
+	 */
 	public static Passager rechercherUnPassager(String nom, String prenom) {
 		connexionBDD();
 		Passager lePassager = null;
@@ -532,7 +655,12 @@ public class Modele {
 		return lePassager;
 	}
 	
-	// Obtenir un passager
+	/**
+	 * Obtenir un passager
+	 * 
+	 * @param unNum
+	 * @return
+	 */
 	public static Passager getUnPassager(int unNum) {
 		connexionBDD();
 		Passager lePassager = null;
@@ -552,7 +680,11 @@ public class Modele {
 		return lePassager;
 	}
 
-	// Obtenir tous les passagers
+	/**
+	 * Obtenir tous les passagers
+	 * 
+	 * @return tous lesPassagers
+	 */
 	public static ArrayList<Passager> getTousLesPassagers() {
 		connexionBDD();
 		ArrayList<Passager> lesPassagers = new ArrayList<Passager>();
@@ -573,7 +705,12 @@ public class Modele {
 		return lesPassagers; 
 	}
 	
-	// Obtenir le nombre de places réservées d'un vol
+	/**
+	 * Obtenir le nombre de places réservées d'un vol
+	 * 
+	 * @param numV
+	 * @return nb
+	 */
 	public static int getNbPlacesReservees(int numV) {
 		connexionBDD();
 		int nb = 0;
@@ -593,7 +730,12 @@ public class Modele {
 		return nb; 
 	}
 	
-	// Obtenir la liste des vols d'un passager donné
+	/**
+	 * Obtenir la liste des vols d'un passager donné
+	 * 
+	 * @param numP
+	 * @return lesVols
+	 */
 	public static ArrayList<VolCourrier> getSesVols(int numP) {
 		connexionBDD();
 		ArrayList<VolCourrier> lesVols = new ArrayList<VolCourrier>();
